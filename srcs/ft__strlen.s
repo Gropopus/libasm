@@ -1,4 +1,4 @@
-global ft__strlen
+	global ft__strlen
 
 ft__strlen:
 	mov	rax, 0			;initialize value (i = 0)

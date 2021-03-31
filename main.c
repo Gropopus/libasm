@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/31 12:21:00 by user42            #+#    #+#             */
+/*   Updated: 2021/03/31 12:21:04 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
@@ -53,8 +65,8 @@ int main(int ac, char **av)
 		printf("Error\nEnter 2 strings please\n");
 		return (0);
 	}
-	printf("%sEvery results from my lib will be display in this color%s\n", CYAN, NC);
-	printf("%sEvery results from the real functions will be display in this color%s\n\n", GREEN, NC);
+	printf("%sEvery results from my lib will be displayed in this color%s\n", CYAN, NC);
+	printf("%sEvery results from the real functions will be displayed in this color%s\n\n", GREEN, NC);
 	char *str = NULL;
 	char dest[6000];
 	printf("		%s#############################\n", YELLOW);

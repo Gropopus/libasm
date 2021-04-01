@@ -6,7 +6,7 @@
 #    By: thsembel <thsembel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/31 11:22:21 by user42            #+#    #+#              #
-#    Updated: 2021/03/31 14:38:38 by user42           ###   ########.fr        #
+#    Updated: 2021/04/01 11:02:34 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,9 @@ ${NAME}:	${OBJS}
 		@ar -rc libasm.a ${OBJS}
 		@echo "${GREEN}"
 		ranlib ${NAME}
-		@echo "${NC}"
+		@clang ./test_srcs/tester.c libasm.a
+		@mv a.out tester
+		@echo "\ntester  program has been created${NC}"
 
 all:		${NAME}
 
@@ -56,7 +58,8 @@ clean:
 fclean:		clean
 		@${RM} ${NAME}
 		@echo "${RED}libasm.a  deleted	${GREEN}[ ok ]${NC}"
-
+		@${RM} tester
+		@echo "${RED}tester    deleted 	${GREEN}[ ok ]${NC}"
 re:		fclean all
 
 .PHONY:		all clean fclean re

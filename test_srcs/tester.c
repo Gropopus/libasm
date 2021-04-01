@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 12:21:00 by user42            #+#    #+#             */
-/*   Updated: 2021/03/31 15:05:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/01 11:26:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,50 +36,69 @@ size_t	ft__read(int fd, void *buf, size_t count);
 void	ft_putstr(char *str)
 {
 	int i;
+	int ret;
 
 	i = 0;
 	while (str[i])
 	{
-		ft__write(1, &str[i],1);
+		ret = ft__write(1, &str[i],1);
 		i++;
 	}
+	printf("\nret = %d\n", ret);
 }
 
 void	putstr(char *str)
 {
 	int i;
+	int ret;
 
 	i = 0;
 	while (str[i])
 	{
-		write(1, &str[i],1);
+		ret = write(1, &str[i],1);
 		i++;
 	}
+	printf("\nret = %d\n", ret);
 }
 
 int main(int ac, char **av)
 {
 	if (ac == 1)
 	{
-		printf("Error\nEnter 2 strings please\n");
+		printf("%sError:%s\nEnter two strings and the path to a file as 3rd arguments\n", RED, NC);
 		return (0);
 	}
-	printf("%sEvery results from my lib will be displayed in this color%s\n", CYAN, NC);
+	printf("%s########################################################################\n", PURPLE);
+	printf("#    _      _ _                           _            _               #\n");
+	printf("#   | |    (_) |                         | |          | |              #\n");
+	printf("#   | |     _| |__   __ _ ___ _ __ ___   | |_ ___  ___| |_ ___ _ __    #\n");
+	printf("#   | |    | | '_ \\ / _` / __| '_ ` _ \\  | __/ _ \\/ __| __/ _ \\ '__|   #\n");
+	printf("#   | |____| | |_) | (_| \\__ \\ | | | | | | ||  __/\\__ \\ ||  __/ |      #\n");
+	printf("#   |______|_|_.__/ \\__,_|___/_| |_| |_|  \\__\\___||___/\\__\\___|_|      #\n");
+	printf("#                                                                      #\n");
+	printf("########################################################################%s\n", NC);
+	
+	printf("\n%sEvery results from my lib will be displayed in this color%s\n", CYAN, NC);
 	printf("%sEvery results from the real functions will be displayed in this color%s\n\n", GREEN, NC);
 	char *str = NULL;
 	char dest[6000];
+	char dest2[6000];
 	printf("		%s#############################\n", YELLOW);
 	printf("		#	   ft_strlen	    #\n");
 	printf("		%s#############################%s\n\n", YELLOW, NC);
 	printf("%smine	%zu%s\n", CYAN, ft__strlen(av[1]), NC);
+	printf("%smine  %zu%s\n", CYAN, ft__strlen(av[2]), NC);
 	printf("%sreal	%lu%s\n", GREEN, strlen(av[1]), NC);
+	printf("%sreal  %lu%s\n", GREEN, strlen(av[2]), NC);	
 	printf("\nempty string: (only mine because the real one is segfaulting)\n");
 	printf("%snull	%zu%s\n\n", CYAN, ft__strlen(str), NC);
 	printf("		%s#############################\n", YELLOW);
 	printf("		#         ft_strcpy         #\n");
 	printf("		%s#############################%s\n\n", YELLOW, NC);
 	printf("%smine	%s%s\n", CYAN, ft__strcpy(dest,av[1]), NC);
+        printf("%smine  %s%s\n", CYAN, ft__strcpy(dest2,av[2]), NC);
 	printf("%sreal	%s%s\n", GREEN, strcpy(dest,av[1]), NC);
+	printf("%sreal  %s%s\n", GREEN, strcpy(dest,av[2]), NC);
 	printf("\nempty string:\n");
 	printf("%smine null	%s%s\n", CYAN, ft__strcpy(dest, str), NC);
 	printf("%sreal null	%s%s\n\n", GREEN, ft__strcpy(dest,str), NC);
@@ -93,16 +112,22 @@ int main(int ac, char **av)
         printf("		%s#############################\n", YELLOW);
 	printf("		#         ft__write         #\n");
 	printf("		%s#############################%s\n\n", YELLOW, NC);
-	printf("	%s->mine%s", CYAN, NC);
-		ft_putstr(av[1]);
-	printf("\n	%s->real%s", GREEN, NC);
+	printf("%s	->mine%s", CYAN, NC);
+	ft_putstr(av[1]);
+	printf("%s	->mine%s", CYAN, NC);
+        ft_putstr(av[2]);
+	printf("\n%s	->real%s", GREEN, NC);
 	putstr(av[1]);
+	printf("\n%s	->real%s", GREEN, NC);
+        putstr(av[2]);
 	printf("\n\n");
 	printf("		%s#############################\n", YELLOW);
 	printf("		#         ft__strdup        #\n");
 	printf("		%s#############################\n\n%s", YELLOW, NC);
 	printf("%smine	%s%s\n", CYAN, ft__strdup(av[1]), NC);
+	printf("%smine  %s%s\n", CYAN, ft__strdup(av[2]), NC);
 	printf("%sreal	%s%s\n", GREEN, strdup(av[1]), NC);
+	printf("%sreal  %s%s\n", GREEN, strdup(av[2]), NC);
 	printf("\nempty string:\n");
 	printf("%smine	%s%s\n\n", CYAN, ft__strdup(str), GREEN);
 	printf("                %s#############################\n", YELLOW);
@@ -111,7 +136,7 @@ int main(int ac, char **av)
 	char buff[10000];
 	int fd;
 	int ret;
-	fd = open("./testfile", O_RDONLY);
+	fd = open(av[3], O_RDONLY);
 	while ((ret = ft__read(fd, buff, 10000)) != 0)	
 	{
 		if (ret < 0)
@@ -121,7 +146,7 @@ int main(int ac, char **av)
 		}
 		buff[ret] = '\0';
 	}	
-	printf("buffer->%s", buff);
+	printf("%smine	ret=%d\nbuffer->%s%s", CYAN, ret, NC, buff);
 	//printf("%smine:	%d%s", CYAN, ft___read());
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 12:21:00 by user42            #+#    #+#             */
-/*   Updated: 2021/04/01 11:26:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/01 11:48:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,18 @@ int main(int ac, char **av)
 	printf("		#	   ft_strlen	    #\n");
 	printf("		%s#############################%s\n\n", YELLOW, NC);
 	printf("%smine	%zu%s\n", CYAN, ft__strlen(av[1]), NC);
-	printf("%smine  %zu%s\n", CYAN, ft__strlen(av[2]), NC);
+	printf("%smine 	%zu%s\n\n", CYAN, ft__strlen(av[2]), NC);
 	printf("%sreal	%lu%s\n", GREEN, strlen(av[1]), NC);
-	printf("%sreal  %lu%s\n", GREEN, strlen(av[2]), NC);	
+	printf("%sreal 	%lu%s\n", GREEN, strlen(av[2]), NC);	
 	printf("\nempty string: (only mine because the real one is segfaulting)\n");
 	printf("%snull	%zu%s\n\n", CYAN, ft__strlen(str), NC);
 	printf("		%s#############################\n", YELLOW);
 	printf("		#         ft_strcpy         #\n");
 	printf("		%s#############################%s\n\n", YELLOW, NC);
 	printf("%smine	%s%s\n", CYAN, ft__strcpy(dest,av[1]), NC);
-        printf("%smine  %s%s\n", CYAN, ft__strcpy(dest2,av[2]), NC);
+        printf("%smine 	%s%s\n\n", CYAN, ft__strcpy(dest2,av[2]), NC);
 	printf("%sreal	%s%s\n", GREEN, strcpy(dest,av[1]), NC);
-	printf("%sreal  %s%s\n", GREEN, strcpy(dest,av[2]), NC);
+	printf("%sreal 	%s%s\n", GREEN, strcpy(dest,av[2]), NC);
 	printf("\nempty string:\n");
 	printf("%smine null	%s%s\n", CYAN, ft__strcpy(dest, str), NC);
 	printf("%sreal null	%s%s\n\n", GREEN, ft__strcpy(dest,str), NC);
@@ -116,7 +116,7 @@ int main(int ac, char **av)
 	ft_putstr(av[1]);
 	printf("%s	->mine%s", CYAN, NC);
         ft_putstr(av[2]);
-	printf("\n%s	->real%s", GREEN, NC);
+	printf("\n\n%s	->real%s", GREEN, NC);
 	putstr(av[1]);
 	printf("\n%s	->real%s", GREEN, NC);
         putstr(av[2]);
@@ -125,9 +125,9 @@ int main(int ac, char **av)
 	printf("		#         ft__strdup        #\n");
 	printf("		%s#############################\n\n%s", YELLOW, NC);
 	printf("%smine	%s%s\n", CYAN, ft__strdup(av[1]), NC);
-	printf("%smine  %s%s\n", CYAN, ft__strdup(av[2]), NC);
+	printf("%smine 	%s%s\n\n", CYAN, ft__strdup(av[2]), NC);
 	printf("%sreal	%s%s\n", GREEN, strdup(av[1]), NC);
-	printf("%sreal  %s%s\n", GREEN, strdup(av[2]), NC);
+	printf("%sreal	%s%s\n", GREEN, strdup(av[2]), NC);
 	printf("\nempty string:\n");
 	printf("%smine	%s%s\n\n", CYAN, ft__strdup(str), GREEN);
 	printf("                %s#############################\n", YELLOW);
@@ -146,7 +146,16 @@ int main(int ac, char **av)
 		}
 		buff[ret] = '\0';
 	}	
-	printf("%smine	ret=%d\nbuffer->%s%s", CYAN, ret, NC, buff);
-	//printf("%smine:	%d%s", CYAN, ft___read());
+	printf("%smine	ret=%d\nbuffer->%s%s\n", CYAN, ret, NC, buff);
+	while ((ret = read(fd, buff, 10000)) != 0)
+        {
+                if (ret < 0)
+                {
+                        printf("error ret read ->%d\n", ret);
+                        return (0);
+                }
+                buff[ret] = '\0';
+        }
+        printf("\n%sreal  ret=%d\nbuffer->%s%s", GREEN, ret, NC, buff);
 	return (0);
 }
